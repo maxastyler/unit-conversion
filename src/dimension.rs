@@ -1,4 +1,7 @@
+//! A physical dimension.
+
 #[derive(Debug)]
+/// This struct contains the dimension information
 pub struct Dimension {
     length: i32, //In metres
     time: i32, //In seconds
