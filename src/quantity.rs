@@ -1,4 +1,5 @@
 use dimension::Dimension;
+use unit::Unit;
 
 #[derive(Debug)]
 pub struct Quantity {
@@ -27,5 +28,10 @@ impl Quantity {
     }
     pub fn div(&self, other: Quantity) -> Quantity {
         Quantity::new(self.value/other.value, &self.dimension.div(&other.dimension).array())
+    }
+
+    pub fn convert_to(&self, units: &Unit) -> Option<f64> {
+        if self.dimension == units.dimension { Some(self.value) }
+        else { None }
     }
 }

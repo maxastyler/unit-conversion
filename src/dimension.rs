@@ -1,6 +1,6 @@
 //! A physical dimension.
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 /// This struct contains the dimension information
 pub struct Dimension {
     length: i32, //In metres
@@ -73,6 +73,14 @@ impl Dimension {
         Dimension::new(&[a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8]])
     }
     pub fn div(&self, other: &Dimension) -> Dimension {
-        self.invert().mul(other)
+        self.mul(&other.invert())
+    }
+    pub fn pow(&self, power: i32) -> Dimension {
+        let a: Vec<i32> = self.array().iter().map(|x| x*power).collect();
+        Dimension::new(&[a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8]])
+    }
+    pub fn root(&self, root: i32) -> Dimension {
+        let a: Vec<i32> = self.array().iter().map(|x| x/root).collect();
+        Dimension::new(&[a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8]])
     }
 }
