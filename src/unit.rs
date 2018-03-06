@@ -27,7 +27,19 @@ impl Unit {
     pub fn root(&self, root: i32) -> Unit {
         Unit::new(self.value.powf(1.0/(root as f64)), &self.dimension.root(root).array())
     }
-    pub fn build_unit(unit_map: HashMap<&str, Unit>, comps: Vec<(&str, i32)> )-> Option<Unit> {
-        None
+}
+pub fn build_unit(unit_map: HashMap<&str, Unit>, comps: Vec<(&str, i32)> )-> Option<Unit> {
+    let mut cur_unit = Some(Unit::identity());
+    for (u_s, i) in comps.into_iter() {
+        match unit_map.get(u_s) {
+            Some(u) => { for j in 0..i.abs() {
+                if i>=0 { cur_unit = Some(cur_unit.unwrap().mul(u)); }
+                else { cur_unit = Some(cur_unit.unwrap().div(u)); }
+                }},
+            None => { cur_unit = None;
+                break
+            }
+        }
     }
+    cur_unit
 }

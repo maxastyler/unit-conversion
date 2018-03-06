@@ -28,4 +28,6 @@ fn main() {
     units.insert("nano", Unit::new(1e-9, &[0, 0, 0, 0, 0, 0, 0, 0, 0]));
     units.insert("joule", Unit::new(1.0, &[2, -2, 1, 0, 0, 0, 0, 0, 0]));
     let a = quantity::Quantity::new(10.0, &[2, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let u = unit::build_unit(units, vec!(("joule", 1), ("kilo", 1), ("metre", 2)));
+    println!("{:?}", u);
 }
