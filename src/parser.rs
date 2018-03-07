@@ -68,6 +68,15 @@ pub fn get_units_from_lines(lines: &[u8]) -> Vec<(&str, Unit)> {
     split_units
 }
 
+named!(parse_input_units<Vec<(&str, i32)> > , ws!(many1!(
+    do_parse!(
+        name: ws!(alpha) >>
+        tag!(b"^") >>
+        pow: get_int >>
+        (from_utf8(name).unwrap(), pow)
+        )
+        )));
+
 #[cfg(test)]
 mod tests {
         use super::*;
@@ -105,8 +114,18 @@ mod tests {
         
         #[test]
         fn test_get_units() {
+			use dimension::Dimension;
             let s = &b"hello : -1.0e-2 : 1 0 0 0 0 0 0 2 0\nhi : 1.23e2 : 1 0 0 2 0 0 0 2 0"[..];
+			let r = vec!(("hello", Unit { value: -0.01, dimension: Dimension { length: 1, time: 0, mass: 0, temperature: 0, amount: 0, current: 0, luminosity: 0, plane: 2, solid: 0 } }), ("hi", Unit { value: 123.0, dimension: Dimension { length: 1, time: 0, mass: 0, temperature: 2, amount: 0, current: 0, luminosity: 0, plane: 2, solid: 0 } }));
             let p = get_units_from_lines(s);
-            assert_eq!(p, vec!());
+            assert_eq!(p, r);
+        }
+
+        #[test]
+        fn test_input_units() {
+            let s = &b"minutes^-3rydbergs^2seconds^1"[..];
+            let tups = vec!(("minutes", -3), ("rydbergs", 2), ("seconds", 1));
+            let p = parse_input_units(s);
+            assert_eq!(p, Done(&b""[..], tups));
         }
 }

@@ -26,8 +26,8 @@ fn main() {
     let s = read_file_to_str("standard_units").unwrap();
     let mut units: HashMap<&str, Unit> = HashMap::new();
     units.insert("identity", Unit::identity());
-    let a = quantity::Quantity::new(10.0, &[2, 0, 0, 0, 0, 0, 0, 0, 0]);
-    let u = unit::build_unit(& units, vec!(("milli", 2), ("metre", 2)));
     unit::units_from_str(&mut units, &s);
-    println!("{:?}", units);
+    let a = quantity::Quantity::new(100e9, &[-1, -2, 1, 0, 0, 0, 0, 0, 0]);
+    let u = unit::build_unit(& units, vec!(("rydberg", 1), ("bohr", -3)));
+    println!("{:?}", a.convert_to(&u.unwrap()));
 }

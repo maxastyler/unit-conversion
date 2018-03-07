@@ -3,15 +3,15 @@
 #[derive(Debug, PartialEq)]
 /// This struct contains the dimension information
 pub struct Dimension {
-    length: i32, //In metres
-    time: i32, //In seconds
-    mass: i32, //In kilograms
-    temperature: i32, //In kelvin
-    amount: i32, //In moles
-    current: i32, //In amperes
-    luminosity: i32, //In candela
-    plane: i32, //In radians
-    solid: i32, //In steradians
+    pub length: i32, //In metres
+    pub time: i32, //In seconds
+    pub mass: i32, //In kilograms
+    pub temperature: i32, //In kelvin
+    pub amount: i32, //In moles
+    pub current: i32, //In amperes
+    pub luminosity: i32, //In candela
+    pub plane: i32, //In radians
+    pub solid: i32, //In steradians
 }
 
 impl Dimension {
