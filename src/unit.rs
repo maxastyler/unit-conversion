@@ -31,7 +31,7 @@ impl Unit {
         Unit::new(self.value.powf(1.0/(root as f64)), &self.dimension.root(root).array())
     }
 }
-pub fn build_unit(unit_map: HashMap<&str, Unit>, comps: Vec<(&str, i32)> ) -> Option<Unit> {
+pub fn build_unit(unit_map: & HashMap<&str, Unit>, comps: Vec<(&str, i32)> ) -> Option<Unit> {
     let mut cur_unit = Some(Unit::identity());
     for (u_s, i) in comps.into_iter() {
         match unit_map.get(u_s) {
@@ -47,6 +47,10 @@ pub fn build_unit(unit_map: HashMap<&str, Unit>, comps: Vec<(&str, i32)> ) -> Op
     cur_unit
 }
 
-pub fn units_from_str(unit_map: &mut HashMap<&str, Unit>, unit_string: &str) {
-    
+pub fn units_from_str<'a>(unit_map: &mut HashMap<&'a str, Unit>, unit_string: &'a str) {
+    let a = unit_string.as_bytes();
+    let unit_vec = get_units_from_lines(a);
+    for (name, item) in unit_vec.into_iter() {
+        unit_map.insert(name, item);
+    }
 }

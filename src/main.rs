@@ -4,6 +4,7 @@
 extern crate nom;
 
 use std::collections::HashMap;
+use std::fs::File;
 
 mod dimension;
 mod quantity;
@@ -34,7 +35,5 @@ fn main() {
     units.insert("pascal", Unit::new(1.0, &[-1, -2, 1, 0, 0, 0, 0, 0, 0]));
     units.insert("bohr", Unit::new(5.29177e-11, &[1, 0, 0, 0, 0, 0, 0, 0, 0]));
     let a = quantity::Quantity::new(10.0, &[2, 0, 0, 0, 0, 0, 0, 0, 0]);
-    let u = unit::build_unit(units, vec!(("milli", 2), ("metre", 2)));
-    println!("{:?}", u);
-    println!("{:?}", a.convert_to(&u.unwrap()));
+    let u = unit::build_unit(& units, vec!(("milli", 2), ("metre", 2)));
 }
