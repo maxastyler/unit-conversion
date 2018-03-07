@@ -4,6 +4,9 @@ use dimension::Dimension;
 use std::collections::HashMap;
 use std::ops::{Mul, Div};
 use parser::get_units_from_lines;
+use std::io;
+use std::fs::File;
+use std::io::prelude::*;
 
 #[derive(Debug, PartialEq)]
 pub struct Unit{
