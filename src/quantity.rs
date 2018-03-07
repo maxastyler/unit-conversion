@@ -31,7 +31,7 @@ impl Quantity {
     }
 
     pub fn convert_to(&self, units: &Unit) -> Option<f64> {
-        if self.dimension == units.dimension { Some(self.value) }
+        if self.dimension == units.dimension { Some(self.value/units.value) }
         else { None }
     }
 }
